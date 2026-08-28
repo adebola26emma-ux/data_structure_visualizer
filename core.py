@@ -185,16 +185,25 @@ class BST:
         if node.right is not None:
             right_ok = self.is_valid_bst(node.right, node.value, high)
         return left_ok and right_ok
-if __name__ == "__main__":
-    tree = BST()
-    for val in [9, 5, 10, 0, 6, 11, -1, 1, 2]:
-        tree.insert(val)
-    print("------------------------------")
-    print(tree.is_valid_bst())   # True or False?
 
-    tree.delete(10)
-    tree.delete(11)
-    tree.delete(9)
-    print("------------------------------")
-
-    print(tree.is_valid_bst())   # True or False?
+    def export_graph(self, filename="tree"):
+        from graphviz import Digraph
+        dot = Digraph()
+        
+        if self.root is not None:
+            self._add_node_edges(dot, self.root)
+        
+        dot.render(filename, format="png", cleanup=True)
+    
+    def _add_node_edges(self, dot, node):
+        
+        dot.node(str(id(node)), str(node.value))
+            
+        if node.left is not None:
+            dot.edge(str(id(node)), str(id(node.left)))
+            self._add_node_edges(dot, node.left)
+        if node.right is not None:
+            dot.edge(str(id(node)), str(id(node.right)))
+            self._add_node_edges(dot, node.right)
+        
+        return dot

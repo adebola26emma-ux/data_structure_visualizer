@@ -28,8 +28,10 @@ search args : find an item in the tree.""")
             arg = int(arg)
         except:
             print("Invalid argument.Type 'help' for command info")
+            continue
         if command == "insert":
-            print(tree.insert(arg))
+            tree.insert(arg)
+            print("Insertion succesful")
         elif command == "search":
             search = tree.search(arg)
             if search is None:
@@ -39,6 +41,7 @@ search args : find an item in the tree.""")
                 print(f"({search.value}) found with left child ({search.left.value if search.left is not None else search.left}) and right child ({search.right.value if search.right is not None else search.right})")
         elif command == "delete":
             tree.delete(arg)
+            print("Deletion successful")
         else:
             print("Invalid command\nType 'help' to see command info.")
         
